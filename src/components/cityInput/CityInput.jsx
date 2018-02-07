@@ -28,7 +28,7 @@ class CityInput extends Component {
   }
 
   handleSubmit = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !(this.props.computerCities.loading || this.props.userCities.loading || !this.state.city)) {
       this.handleAnswer();
     }
   }
@@ -43,9 +43,6 @@ class CityInput extends Component {
         .then(res => {
           if (res) {
             this.props.generateRandomCity();
-            this.setState({
-              city: '',
-            })
           } else {
             alert('City not exist!');
           }
@@ -55,8 +52,7 @@ class CityInput extends Component {
   }
 
   render() {
-    const isCityInputDisabled = this.props.computerCities.loading || this.props.userCities.loading;
-    const isButtonDisabled = isCityInputDisabled || !this.state.city;
+    const isButtonDisabled = this.props.computerCities.loading || this.props.userCities.loading || !this.state.city;
     return (
       <div className="city-input">
         <label htmlFor="city">Введите название города ниже: </label>
@@ -69,7 +65,6 @@ class CityInput extends Component {
             type="text"
             name="city"
             id="city"
-            disabled={isCityInputDisabled}
             onKeyPress={this.handleSubmit}
             className="city-input__input"
           />
