@@ -8,19 +8,28 @@ class CityInput extends Component {
     };
   }
 
-  handleCityChange = (e) => {
-    if (e.target.value.length > 0 || !this.props.lastLetter) {
-      this.setState({
-        city: e.target.value,
-      });
-    }
+  cityInputRef = (city) => {
+    this.city = city;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.lastLetter !== nextProps.lastLetter) {
-      this.setState({
-        city: nextProps.lastLetter.toUpperCase(),
-      })
+    this.setState({
+      city: nextProps.lastLetter.toUpperCase(),
+    }, () => {
+      this.city.focus();
+    });
+  }
+
+  handleCityChange = (e) => {
+    const city = e.target.value.length > 0 || !this.props.lastLetter ?
+      e.target.value :
+      this.props.lastLetter.toUpperCase();
+    this.setState({ city });
+  }
+
+  handleSubmit = (e) => {
+    if (e.key === 'Enter') {
+      this.handleAnswer();
     }
   }
 
@@ -34,8 +43,11 @@ class CityInput extends Component {
         .then(res => {
           if (res) {
             this.props.generateRandomCity();
+            this.setState({
+              city: '',
+            })
           } else {
-            alert('City not exist!')
+            alert('City not exist!');
           }
         })
         .catch()
@@ -46,22 +58,30 @@ class CityInput extends Component {
     const isCityInputDisabled = this.props.computerCities.loading || this.props.userCities.loading;
     const isButtonDisabled = isCityInputDisabled || !this.state.city;
     return (
-      <React.Fragment>
-        <input
-          onChange={this.handleCityChange}
-          value={this.state.city}
-          type="text"
-          name="city"
-          id="city"
-          disabled={isCityInputDisabled}
-        />
-        <button
-          onClick={this.handleAnswer}
-          disabled={isButtonDisabled}
-        >
-          Дальше!
-        </button>
-      </React.Fragment>
+      <div className="city-input">
+        <label htmlFor="city">Введите название города ниже: </label>
+        <div>
+          <input
+            ref={this.cityInputRef}
+            autoFocus
+            onChange={this.handleCityChange}
+            value={this.state.city}
+            type="text"
+            name="city"
+            id="city"
+            disabled={isCityInputDisabled}
+            onKeyPress={this.handleSubmit}
+            className="city-input__input"
+          />
+          <button
+            onClick={this.handleAnswer}
+            disabled={isButtonDisabled}
+            className="city-input__button"
+          >
+            Дальше!
+          </button>
+        </div>
+      </div>
     );
   }
 }

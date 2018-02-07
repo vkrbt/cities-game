@@ -1,0 +1,101 @@
+$message_bubble_color: #DEE2FF;
+$accent_color: #8E9AAF;
+body {
+  font-family: Helvetica;
+}
+
+.container {
+  box-sizing: border-box;
+  padding-right: 20px;
+  padding-left: 20px;
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    margin: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.history {
+  display: flex;
+  flex-direction: row;
+  &__side {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 50%;
+    text-align: center;
+  }
+  &__side--user {
+    align-items: flex-start;
+  }
+  &__side--computer {
+    align-items: flex-end;
+  }
+}
+
+.city-name {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  text-transform: capitalize;
+  border-radius: 3px;
+  background-color: $message_bubble_color;
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.city-name--user {
+  margin-top: 29px;
+  margin-left: 10px;
+  border-top-left-radius: 0;
+}
+
+.city-name--computer {
+  margin-right: 10px;
+  margin-bottom: 29px;
+  border-top-right-radius: 0;
+}
+
+.city-name--user::before,
+.city-name--computer::before {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 5px solid transparent;
+  border-top-color: $message_bubble_color;
+}
+
+.city-name--user::before {
+  right: 100%;
+  border-right-color: $message_bubble_color;
+}
+
+.city-name--computer::before {
+  left: 100%;
+  border-left-color: $message_bubble_color;
+}
+
+.city-input {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  &__input,
+  &__button {
+    padding: 5px 10px;
+    border: 1px solid $accent_color;
+    outline: none;
+  }
+  &__input {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  &__button {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: $accent_color;
+    color: #FFF;
+  }
+}

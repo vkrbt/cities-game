@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { checkYandexApi } from './cities';
 import CityInputContainer from './components/cityInput/CityInputContainer';
-import './index.css';
+import './styles/index.css';
 import HistoryContainer from './components/history/HistoryContainer';
 
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
       return (<div>Загрузка...</div>);
     }
     return (
-      <div>
+      <div className="container">
         <CityInputContainer />
         <HistoryContainer />
       </div>

@@ -1,0 +1,82 @@
+body {
+  font-family: Helvetica; }
+
+.container {
+  box-sizing: border-box;
+  padding-right: 20px;
+  padding-left: 20px; }
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+      margin: auto;
+      padding-right: 40px;
+      padding-left: 40px; } }
+
+.history {
+  display: flex;
+  flex-direction: row; }
+  .history__side {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 50%;
+    text-align: center; }
+  .history__side--user {
+    align-items: flex-start; }
+  .history__side--computer {
+    align-items: flex-end; }
+
+.city-name {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  text-transform: capitalize;
+  border-radius: 3px;
+  background-color: #DEE2FF;
+  font-size: 15px;
+  line-height: 19px; }
+
+.city-name--user {
+  margin-top: 29px;
+  margin-left: 10px;
+  border-top-left-radius: 0; }
+
+.city-name--computer {
+  margin-right: 10px;
+  margin-bottom: 29px;
+  border-top-right-radius: 0; }
+
+.city-name--user::before,
+.city-name--computer::before {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 5px solid transparent;
+  border-top-color: #DEE2FF; }
+
+.city-name--user::before {
+  right: 100%;
+  border-right-color: #DEE2FF; }
+
+.city-name--computer::before {
+  left: 100%;
+  border-left-color: #DEE2FF; }
+
+.city-input {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+  .city-input__input, .city-input__button {
+    padding: 5px 10px;
+    border: 1px solid #8E9AAF;
+    outline: none; }
+  .city-input__input {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px; }
+  .city-input__button {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #8E9AAF;
+    color: #FFF; }
