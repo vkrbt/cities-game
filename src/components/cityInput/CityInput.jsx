@@ -5,6 +5,8 @@ class CityInput extends Component {
     super();
     this.state = {
       city: '',
+      errorMessage: '',
+      showErrorMessage: false,
     };
   }
 
@@ -37,14 +39,23 @@ class CityInput extends Component {
     const isCityWasUsed = this.props.userCities.items.includes(this.state.city.toLowerCase()) ||
       this.props.computerCities.items.includes(this.state.city.toLowerCase());
     if (isCityWasUsed) {
-      alert('City was used!')
+      this.setState({
+        errorMessage: 'Этот город уже был назван.',
+        showErrorMessage: true,
+      });
     } else {
       this.props.checkCity(this.state.city)
         .then(res => {
           if (res) {
             this.props.generateRandomCity();
+            this.setState({
+              showErrorMessage: false,
+            });
           } else {
-            alert('City not exist!');
+            this.setState({
+              errorMessage: 'Такого города не существует.',
+              showErrorMessage: true,
+            });
           }
         })
         .catch()
@@ -55,7 +66,7 @@ class CityInput extends Component {
     const isButtonDisabled = this.props.computerCities.loading || this.props.userCities.loading || !this.state.city;
     return (
       <div className="city-input">
-        <label htmlFor="city">Введите название города ниже: </label>
+        <label className="city-input__label" htmlFor="city">Введите название города ниже: </label>
         <div>
           <input
             ref={this.cityInputRef}
@@ -71,11 +82,12 @@ class CityInput extends Component {
           <button
             onClick={this.handleAnswer}
             disabled={isButtonDisabled}
-            className="city-input__button"
+            className={`city-input__button${isButtonDisabled ? ' city-input__button--disabled' : ''}`}
           >
             Дальше!
           </button>
         </div>
+        <p className={`error-message${this.state.showErrorMessage ? ' error-message--animate' : ''}`}>{this.state.errorMessage}</p>
       </div>
     );
   }

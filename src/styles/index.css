@@ -1,10 +1,54 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+  blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
 body {
   font-family: Helvetica; }
 
 .container {
   box-sizing: border-box;
-  padding-right: 20px;
-  padding-left: 20px; }
+  padding: 20px; }
   @media (min-width: 1024px) {
     .container {
       max-width: 1024px;
@@ -14,7 +58,8 @@ body {
 
 .history {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  padding-top: 20px; }
   .history__side {
     display: flex;
     flex-direction: column;
@@ -25,6 +70,9 @@ body {
     align-items: flex-start; }
   .history__side--computer {
     align-items: flex-end; }
+  .history__headline {
+    margin-bottom: 20px;
+    font-weight: 600; }
 
 .city-name {
   position: relative;
@@ -68,15 +116,36 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column; }
+  .city-input__label {
+    margin-bottom: 10px; }
   .city-input__input, .city-input__button {
     padding: 5px 10px;
     border: 1px solid #8E9AAF;
     outline: none; }
   .city-input__input {
+    border-right: none;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px; }
   .city-input__button {
+    transition: opacity 0.2s ease-out;
+    opacity: 1;
+    color: #FFF;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    background-color: #8E9AAF;
-    color: #FFF; }
+    background-color: #8E9AAF; }
+  .city-input__button--disabled {
+    opacity: 0.5; }
+
+.error-message {
+  height: 25px;
+  transition: 0.5s ease;
+  transform: rotateX(90deg);
+  transform-origin: 0 0;
+  opacity: 0;
+  color: #b10000;
+  font-size: 15px;
+  line-height: 25px; }
+
+.error-message--animate {
+  transform: rotate(0);
+  opacity: 1; }

@@ -27,7 +27,7 @@ class App extends Component {
 
   render() {
     if (!this.state.isYandexApiLoaded) {
-      return (<div>Загрузка...</div>);
+      return (<div className="container">Загрузка...</div>);
     }
     return (
       <div className="container">
