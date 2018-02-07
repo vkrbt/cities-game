@@ -1,41 +1,50 @@
-import { getCityCoordinatesUser, getRandomCity, getCityCoordinatesComputer } from '../cities';
+import { getCityCoordinatesUser, getRandomCity } from '../cities';
 
 export const CHECK_CITY_SENT = 'CHECK_CITY_SENT';
 export const CHECK_CITY_RECEIVED = 'CHECK_CITY_RECEIVED';
 export const CHECK_CITY_ERROR = 'CHECK_CITY_ERROR';
-export const checkCity = (city) => (dispatch) => {
+export const checkCity = (city) => (dispatch, getState) => {
+  dispatch({ type: CHECK_CITY_SENT });
   return getCityCoordinatesUser(city)
     .then((res) => {
       if (res === null) {
-        throw res;
+        dispatch({ type: CHECK_CITY_ERROR });
+        return res;
       }
+      dispatch({ type: CHECK_CITY_RECEIVED, payload: city.toLowerCase() });
+      return res;
     }, (res) => {
-      console.error(res);
+      dispatch({ type: CHECK_CITY_ERROR });
+      return res;
     });
+};
+
+export const getLastLetter = (word) => {
+  const invalidLetters = 'ъь'.split('');
+  const letters = word.split('');
+  let lastLetter = letters.pop();
+  if (invalidLetters.includes(lastLetter)) {
+    lastLetter = letters.pop();
+  }
+  return lastLetter;
 };
 
 export const GENERATE_CITY_SENT = 'GENERATE_CITY_SENT';
 export const GENERATE_CITY_RECEIVED = 'GENERATE_CITY_RECEIVED';
 export const GENERATE_CITY_ERROR = 'GENERATE_CITY_ERROR';
-export const generateRandomCity = (lastLetter) => (dispatch) => {
+export const generateRandomCity = () => (dispatch, getState) => {
+  const lastLetter = getLastLetter(getState().userCities.items[0]);
   dispatch({ type: GENERATE_CITY_SENT });
   return getRandomCity(lastLetter)
-    .then((city) => {
-      dispatch({ type: GENERATE_CITY_RECEIVED });
+    .then((res) => {
+      if (res.city) {
+        dispatch({ type: GENERATE_CITY_RECEIVED, payload: res.city.toLowerCase() });
+      } else {
+        throw res
+      }
     })
-    .then(res => {
+    .catch(res => {
       dispatch({ type: GENERATE_CITY_ERROR });
       console.error(res);
     })
 }
-
-export const ADD_USER_CITY = 'ADD_USER_CITY';
-export const addUserCity = city => (dispatch) => {
-  dispatch({ type: ADD_USER_CITY, payload: city });
-};
-
-
-export const ADD_COMPUTER_CITY = 'ADD_COMPUTER_CITY';
-export const addComputerCity = city => (dispatch) => {
-  dispatch({ type: ADD_COMPUTER_CITY, payload: city });
-};

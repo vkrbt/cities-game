@@ -1,11 +1,16 @@
 import { connect } from 'react-redux';
 import CityInput from './CityInput';
-import { addUserCity, checkCity, generateRandomCity } from '../../actions/cityActions'
+import { checkCity, generateRandomCity } from '../../actions/cityActions'
+
+const mapStateToProps = (state) => ({
+  computerCities: state.computerCities,
+  userCities: state.userCities,
+  lastLetter: state.lastLetter,
+});
 
 const mapDispatchToProps = {
-  addUserCity,
   checkCity,
   generateRandomCity,
 };
 
-export default connect(null, mapDispatchToProps)(CityInput);
+export default connect(mapStateToProps, mapDispatchToProps)(CityInput);

@@ -37,6 +37,5 @@ export const getCityCoordinatesComputer = (cityName = '') => {
 export const getRandomCity = letter => fetch(`https://cities-server-vkrbt.herokuapp.com/get-city/${letter}`)
   .then(res => res.json())
   .then(body => {
-    console.log(body);
-    return body.city;
+    return body;
   })

@@ -10,3 +10,7 @@
 
   text-align: center;
 }
+
+.city-name {
+  text-transform: capitalize;
+}

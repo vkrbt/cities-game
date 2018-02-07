@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { checkYandexApi, getRandomCity, getCityCoordinatesComputer } from './cities';
+import { checkYandexApi } from './cities';
 import CityInputContainer from './components/cityInput/CityInputContainer';
 import './index.css';
 import HistoryContainer from './components/history/HistoryContainer';
@@ -23,19 +23,6 @@ class App extends Component {
       () => {
         this.setState({ isYandexApiLoaded: false });
       });
-  }
-
-  generateRandomCity = (lastLetter) => {
-    getRandomCity(lastLetter)
-      .then((city) => {
-        this.setState({
-          computerCities: [city, ...this.state.computerCities],
-        });
-        return getCityCoordinatesComputer(city);
-      })
-      .then(res => {
-        console.log(res);
-      })
   }
 
   render() {
