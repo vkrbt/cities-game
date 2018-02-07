@@ -15,11 +15,13 @@ class CityInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      city: nextProps.lastLetter.toUpperCase(),
-    }, () => {
-      this.city.focus();
-    });
+    if (nextProps.userCities.success) {
+      this.setState({
+        city: nextProps.lastLetter.toUpperCase(),
+      }, () => {
+        this.city.focus();
+      });
+    }
   }
 
   handleCityChange = (e) => {

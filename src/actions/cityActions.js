@@ -20,7 +20,7 @@ export const checkCity = (city) => (dispatch, getState) => {
 };
 
 export const getLastLetter = (word) => {
-  const invalidLetters = 'ъь'.split('');
+  const invalidLetters = 'ъьё'.split('');
   const letters = word.split('');
   let lastLetter = letters.pop();
   if (invalidLetters.includes(lastLetter)) {
@@ -40,7 +40,7 @@ export const generateRandomCity = () => (dispatch, getState) => {
       if (res.city) {
         dispatch({ type: GENERATE_CITY_RECEIVED, payload: res.city.toLowerCase() });
       } else {
-        throw res
+        throw res;
       }
     })
     .catch(res => {

@@ -3,20 +3,18 @@
 export const checkYandexApi = () => ymaps.ready();
 
 export const getCityCoordinatesUser = (cityName = '') => {
-  const settings = { results: 1 };
-  return ymaps.geocode('город ' + cityName, settings)
-    .then((res) => {
-      const geoObject = res.geoObjects.get(0);
-      const geoInfo = geoObject && geoObject.properties.get('metaDataProperty');
-      const geoName = geoObject && geoObject.properties.get('name');
-      return (
-        geoInfo &&
-        geoInfo.GeocoderMetaData &&
-        geoInfo.GeocoderMetaData.kind === 'locality' &&
-        geoName.toLowerCase() === cityName.toLowerCase()
-      ) ? geoObject.geometry.getCoordinates() : null;
+
+  return getCityCoordinatesComputer('город ' + cityName)
+    .then(res => {
+      if (res.cityName.toLowerCase() === cityName.toLocaleLowerCase()) {
+        return res;
+      } else {
+        throw res;
+      }
     })
-    .catch(() => null);
+    .catch(res => {
+      return null;
+    })
 };
 
 export const getCityCoordinatesComputer = (cityName = '') => {
@@ -24,12 +22,16 @@ export const getCityCoordinatesComputer = (cityName = '') => {
   return ymaps.geocode(cityName, settings)
     .then((res) => {
       const geoObject = res.geoObjects.get(0);
+      const geoName = geoObject && geoObject.properties.get('name');
       const geoInfo = geoObject && geoObject.properties.get('metaDataProperty');
       return (
         geoInfo &&
         geoInfo.GeocoderMetaData &&
         geoInfo.GeocoderMetaData.kind === 'locality'
-      ) ? geoObject.geometry.getCoordinates() : null;
+      ) ? {
+          cityName: geoName,
+          location: geoObject.geometry.getCoordinates(),
+        } : null;
     })
     .catch(() => null);
 };
