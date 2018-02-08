@@ -68,8 +68,12 @@ body {
     text-align: center; }
   .history__side--user {
     align-items: flex-start; }
+    .history__side--user .history__headline {
+      color: #117ed8; }
   .history__side--computer {
     align-items: flex-end; }
+    .history__side--computer .history__headline {
+      color: #11d86a; }
   .history__headline {
     margin-bottom: 20px;
     font-weight: 600; }
@@ -115,7 +119,8 @@ body {
 .city-input {
   display: flex;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: column;
+  padding-top: 20px; }
   .city-input__label {
     margin-bottom: 10px; }
   .city-input__input, .city-input__button {

@@ -29,9 +29,15 @@ body {
   }
   &__side--user {
     align-items: flex-start;
+    .history__headline {
+      color: #117ed8;
+    }
   }
   &__side--computer {
     align-items: flex-end;
+    .history__headline {
+      color: #11d86a;
+    }
   }
   &__headline {
     margin-bottom: 20px;
@@ -87,6 +93,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-top: 20px;
   &__label {
     margin-bottom: 10px;
   }

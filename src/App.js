@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { checkYandexApi } from './cities';
 import CityInputContainer from './components/cityInput/CityInputContainer';
-import './styles/index.css';
 import HistoryContainer from './components/history/HistoryContainer';
+import CitiesMapContainer from './components/citiesMap/CitiesMapContainer';
+import './styles/index.css';
 
 class App extends Component {
   constructor() {
@@ -31,6 +32,7 @@ class App extends Component {
     }
     return (
       <div className="container">
+        <CitiesMapContainer />
         <CityInputContainer />
         <HistoryContainer />
       </div>

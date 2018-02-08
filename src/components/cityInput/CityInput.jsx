@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { checkCityExistance } from '../../actions/cityActions'
 
 class CityInput extends Component {
   constructor() {
@@ -38,8 +39,7 @@ class CityInput extends Component {
   }
 
   handleAnswer = () => {
-    const isCityWasUsed = this.props.userCities.items.includes(this.state.city.toLowerCase()) ||
-      this.props.computerCities.items.includes(this.state.city.toLowerCase());
+    const isCityWasUsed = checkCityExistance(this.state.city, this.props.userCities, this.props.computerCities);
     if (isCityWasUsed) {
       this.setState({
         errorMessage: 'Этот город уже был назван.',
@@ -49,7 +49,20 @@ class CityInput extends Component {
       this.props.checkCity(this.state.city)
         .then(res => {
           if (res) {
-            this.props.generateRandomCity();
+            this.props.generateRandomCity()
+              .then((res) => {
+                if (!res.location) {
+                  this.setState({
+                    errorMessage: 'Город не найден на карте.',
+                    showErrorMessage: true,
+                  });
+                  setTimeout(() => {
+                    this.setState({
+                      showErrorMessage: false,
+                    });
+                  }, 2000)
+                }
+              });
             this.setState({
               showErrorMessage: false,
             });
@@ -60,7 +73,7 @@ class CityInput extends Component {
             });
           }
         })
-        .catch()
+        .catch();
     }
   }
 

@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   checkCity,
-  generateRandomCity,
+  generateRandomCity
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityInput);
