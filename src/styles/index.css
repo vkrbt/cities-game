@@ -51,13 +51,13 @@ body {
   left: 0;
   font-family: Helvetica; }
   body::after {
-    content: '';
-    z-index: 1;
     position: fixed;
+    z-index: 1;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
     height: 10vh;
+    content: '';
     background: linear-gradient(0, white, rgba(255, 255, 255, 0)); }
 
 * {
@@ -68,6 +68,16 @@ body {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+
+@keyframes appear {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0; }
+  60% {
+    transform: rotateX(40deg); }
+  100% {
+    transform: rotateX(0);
+    opacity: 1; } }
 
 .container {
   box-sizing: border-box;
@@ -136,6 +146,13 @@ body {
   margin-top: 29px;
   margin-left: 10px;
   border-top-left-radius: 0; }
+  .city-name--user:first-of-type {
+    transform: rotateX(0deg); }
+
+.city-name--user:first-of-type,
+.city-name--computer:first-of-type {
+  transform-origin: 0 0;
+  animation: appear 0.8s ease-out; }
 
 .city-name--computer {
   margin-right: 10px;
