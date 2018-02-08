@@ -7,6 +7,22 @@ const mapState = {
   controls: [],
 };
 
+const CustomPlacemark = ({ city, color }) => (
+  <Placemark
+    key={city.cityName}
+    geometry={{
+      coordinates: city.location
+    }}
+    properties={{
+      iconCaption: city.cityName,
+    }}
+    options={{
+      preset: "islands#circleIcon",
+      iconColor: color,
+    }}
+  />
+);
+
 const CitiesMap = (props) => (
   <YMaps>
     <Map state={mapState} width="100%" height="20vh">
@@ -14,40 +30,15 @@ const CitiesMap = (props) => (
         options={{
           groupByCoordinates: false,
           clusterDisableClickZoom: true,
-          clusterHideIconOnBalloonOpen: false,
-          geoObjectHideIconOnBalloonOpen: false,
+          preset: 'islands#nightClusterIcons'
         }}
       >
         {props.userCities.items.map((city => (
-          <Placemark
-            key={city.cityName}
-            geometry={{
-              coordinates: city.location
-            }}
-            properties={{
-              iconCaption: city.cityName,
-            }}
-            options={{
-              preset: "islands#circleIcon",
-              iconColor: '#117ed8',
-            }}
-          />
+          <CustomPlacemark city={city} color="#E0FBFC" />
         )))}
 
         {props.computerCities.items.map((city => city.location ? (
-          <Placemark
-            key={city.cityName}
-            geometry={{
-              coordinates: city.location
-            }}
-            properties={{
-              iconCaption: city.cityName,
-            }}
-            options={{
-              preset: "islands#circleIcon",
-              iconColor: '#11d86a',
-            }}
-          />
+          <CustomPlacemark city={city} color="#98C1D9" />
         ) : null
         ))}
 
