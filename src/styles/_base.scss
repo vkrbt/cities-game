@@ -61,8 +61,8 @@ p {
 
 .container {
   box-sizing: border-box;
-  padding: 20px;
   width: 100%;
+  padding: 20px;
   @media (min-width: 1024px) {
     max-width: 1024px;
     margin: auto;
@@ -91,14 +91,19 @@ p {
 .btn {
   transition: opacity 0.2s ease-out;
   text-align: center;
-  border-radius: 3px;
+  opacity: 1;
   border: none;
-  font-size: 16px;
+  border-radius: 3px;
   outline: none;
+  font-size: 16px;
   -webkit-appearance: none;
 }
 
+.btn--disabled {
+  opacity: 0.5;
+}
+
 .btn--primary {
-  background-color: $accent_color;
   color: #FFF;
+  background-color: $accent_color;
 }

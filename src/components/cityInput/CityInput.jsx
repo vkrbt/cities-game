@@ -109,7 +109,13 @@ class CityInput extends Component {
     return (
       <div className="city-input">
         {this.props.lastLetter ?
-          <button className="btn btn--end-game" onClick={this.openModal}>Закончить</button> :
+          <button
+            className={`btn btn--end-game${this.props.computerCities.loading || this.props.userCities.loading ? ' btn--disabled' : ''}`}
+            onClick={this.openModal}
+            disabled={this.props.computerCities.loading || this.props.userCities.loading}
+          >
+            Сдаться
+          </button> :
           <label className="city-input__label" htmlFor="city">Введите название города ниже: </label>
         }
         <div>
@@ -126,7 +132,7 @@ class CityInput extends Component {
           <button
             onClick={this.handleAnswer}
             disabled={isButtonDisabled}
-            className={`btn btn--primary city-input__button${isButtonDisabled ? ' city-input__button--disabled' : ''}`}
+            className={`btn btn--primary city-input__button${isButtonDisabled ? ' btn--disabled' : ''}`}
           >
             {this.props.computerCities.loading || this.props.userCities.loading ? <span className="small-spinner" /> : 'Дальше'}
           </button>

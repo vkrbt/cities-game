@@ -24,12 +24,8 @@
   }
   &__button {
     width: 80px;
-    opacity: 1;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-  }
-  &__button--disabled {
-    opacity: 0.5;
   }
 }
 
