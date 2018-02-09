@@ -46,7 +46,7 @@ class CityInput extends Component {
         showErrorMessage: true,
       });
     } else {
-      this.props.checkCity(this.state.city)
+      this.props.checkCity(this.state.city.trim())
         .then(res => {
           if (res) {
             this.props.generateRandomCity()
@@ -78,7 +78,7 @@ class CityInput extends Component {
   }
 
   render() {
-    const isButtonDisabled = this.props.computerCities.loading || this.props.userCities.loading || !this.state.city;
+    const isButtonDisabled = this.props.computerCities.loading || this.props.userCities.loading || !this.state.city.trim();
     return (
       <div className="city-input">
         <label className="city-input__label" htmlFor="city">Введите название города ниже: </label>

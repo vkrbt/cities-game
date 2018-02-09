@@ -113,29 +113,18 @@ body {
 .history {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding-top: 20px; }
   .history__side {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     flex-grow: 1;
-    max-width: 50%;
+    min-width: 100%;
     text-align: center; }
-  .history__side--user .history__headline {
-    flex-direction: row;
-    justify-content: space-between; }
-  .history__side--user .city-name {
-    background-color: #E0FBFC; }
-  .history__side--computer {
-    align-items: flex-end; }
-    .history__side--computer .history__headline {
-      flex-direction: row-reverse;
-      justify-content: space-between; }
-    .history__side--computer .city-name {
-      background-color: #98C1D9; }
   .history__headline {
     display: flex;
-    width: 100%;
     margin-bottom: 20px;
     padding: 0 5px;
     font-weight: 600; }
@@ -144,26 +133,28 @@ body {
   position: relative;
   display: inline-block;
   padding: 5px 10px;
+  margin: 2px;
   text-transform: capitalize;
   border-radius: 3px;
   font-size: 15px;
   line-height: 19px; }
 
 .city-name--user {
-  margin-top: 29px;
   margin-left: 10px;
   border-top-left-radius: 0; }
   .city-name--user:first-of-type {
     transform: rotateX(0deg); }
 
-.city-name--user:first-of-type,
-.city-name--computer:first-of-type {
+.city-name--user {
+  transform-origin: 0 0;
+  animation: appear 0.8s ease-out; }
+
+.city-name--computer {
   transform-origin: 0 0;
   animation: appear 0.8s ease-out; }
 
 .city-name--computer {
   margin-right: 10px;
-  margin-bottom: 29px;
   border-top-right-radius: 0; }
 
 .city-name--user::before,
@@ -175,15 +166,20 @@ body {
   content: '';
   border: 5px solid transparent; }
 
-.city-name--user::before {
-  right: 100%;
-  border-top-color: #E0FBFC;
-  border-right-color: #E0FBFC; }
+.city-name--user {
+  background-color: #E0FBFC; }
+  .city-name--user::before {
+    right: 100%;
+    border-top-color: #E0FBFC;
+    border-right-color: #E0FBFC; }
 
-.city-name--computer::before {
-  left: 100%;
-  border-top-color: #98C1D9;
-  border-left-color: #98C1D9; }
+.city-name--computer {
+  background-color: #98C1D9;
+  align-self: flex-end; }
+  .city-name--computer::before {
+    left: 100%;
+    border-top-color: #98C1D9;
+    border-left-color: #98C1D9; }
 
 .city-input {
   display: flex;

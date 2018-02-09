@@ -36,8 +36,8 @@ export const getLastLetter = (word) => {
 export const checkCityExistance = (city, userCities, computerCities) => {
   city = city.toLowerCase();
   return (
-    userCities.items.includes(city) ||
-    computerCities.items.includes(city)
+    userCities.items.find(item => item.cityName === city) ||
+    computerCities.items.find(item => item.cityName === city)
   );
 };
 
@@ -72,7 +72,6 @@ export const generateRandomCity = () => (dispatch, getState) => {
       }
     })
     .catch(res => {
-      console.log(res);
       dispatch({ type: GENERATE_CITY_ERROR });
       return res;
     })
