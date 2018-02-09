@@ -6,7 +6,7 @@ import lastLetter from './lastLetter';
 const reducers = {
   userCities,
   computerCities,
-  lastLetter
+  lastLetter,
 };
 
 export default combineReducers(reducers);

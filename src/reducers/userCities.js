@@ -2,6 +2,7 @@ import {
   CHECK_CITY_SENT,
   CHECK_CITY_RECEIVED,
   CHECK_CITY_ERROR,
+  NEW_GAME,
 } from '../actions/cityActions';
 
 const defaultState = {
@@ -16,7 +17,7 @@ const userCities = (state = defaultState, { type, payload }) => {
       return {
         loading: true,
         success: false,
-        items: [...state.items]
+        items: [...state.items],
       };
     case CHECK_CITY_RECEIVED:
       return {
@@ -25,14 +26,16 @@ const userCities = (state = defaultState, { type, payload }) => {
         items: [
           payload,
           ...state.items,
-        ]
+        ],
       };
     case CHECK_CITY_ERROR:
       return {
         loading: false,
         success: false,
-        items: [...state.items]
+        items: [...state.items],
       };
+    case NEW_GAME:
+      return defaultState;
     default:
       return state;
   }

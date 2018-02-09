@@ -1,0 +1,104 @@
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-family: Helvetica;
+  &::after {
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 10vh;
+    content: '';
+    background: linear-gradient(0, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  }
+}
+
+p {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  60% {
+    transform: rotateX(40deg);
+  }
+  100% {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+@mixin spinner($size, $color) {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  animation: spin 1s linear infinite;
+  border: round($size / 6) solid $color;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    margin: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  display: block;
+  margin: 5px;
+  @include spinner(10vh, $accent_color);
+}
+
+.btn {
+  transition: opacity 0.2s ease-out;
+  text-align: center;
+  border-radius: 3px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.btn--primary {
+  background-color: $accent_color;
+  color: #FFF;
+}

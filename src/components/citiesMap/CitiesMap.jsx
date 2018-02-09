@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark, Clusterer } from 'react-yandex-maps';
 
 const mapState = {
@@ -8,43 +9,62 @@ const mapState = {
 };
 
 const CustomPlacemark = ({ city, color }) => (
-  <Placemark
-    key={city.cityName}
-    geometry={{
-      coordinates: city.location
-    }}
-    properties={{
-      iconCaption: city.cityName,
-    }}
-    options={{
-      preset: "islands#circleIcon",
-      iconColor: color,
-    }}
-  />
-);
+  city.location ? (
+    <Placemark
+      key={city.cityName}
+      geometry={{
+        coordinates: city.location,
+      }}
+      properties={{
+        iconCaption: city.cityName,
+      }}
+      options={{
+        preset: 'islands#circleIcon',
+        iconColor: color,
+      }}
+    />
+  ) : null);
 
-const CitiesMap = (props) => (
+CustomPlacemark.propTypes = {
+  city: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    location: PropTypes.oneOfType([
+      PropTypes.array,
+    ]),
+  }).isRequired,
+  color: PropTypes.string.isRequired,
+};
+
+const CitiesMap = props => (
   <YMaps>
-    <Map state={mapState} width="100%" height="20vh">
+    <Map state={mapState} width="100%" height="35vh">
       <Clusterer
         options={{
           groupByCoordinates: false,
           clusterDisableClickZoom: true,
-          preset: 'islands#nightClusterIcons'
+          preset: 'islands#nightClusterIcons',
         }}
       >
         {props.userCities.items.map((city => (
-          <CustomPlacemark city={city} color="#E0FBFC" />
+          <CustomPlacemark key={city.cityName} city={city} color="#E0FBFC" />
         )))}
 
-        {props.computerCities.items.map((city => city.location ? (
-          <CustomPlacemark city={city} color="#98C1D9" />
-        ) : null
-        ))}
+        {props.computerCities.items.map((city => (
+          <CustomPlacemark key={city.cityName} city={city} color="#98C1D9" />
+        )))}
 
       </Clusterer>
     </Map>
   </YMaps>
 );
+
+CitiesMap.propTypes = {
+  userCities: PropTypes.shape({
+    items: PropTypes.array.isRequired,
+  }).isRequired,
+  computerCities: PropTypes.shape({
+    items: PropTypes.array.isRequired,
+  }).isRequired,
+};
 
 export default CitiesMap;

@@ -3,7 +3,7 @@ import { getCityCoordinatesUser, getCityCoordinatesComputer, getRandomCity } fro
 export const CHECK_CITY_SENT = 'CHECK_CITY_SENT';
 export const CHECK_CITY_RECEIVED = 'CHECK_CITY_RECEIVED';
 export const CHECK_CITY_ERROR = 'CHECK_CITY_ERROR';
-export const checkCity = (city) => (dispatch, getState) => {
+export const checkCity = city => (dispatch) => {
   dispatch({ type: CHECK_CITY_SENT });
   return getCityCoordinatesUser(city)
     .then((res) => {
@@ -34,10 +34,10 @@ export const getLastLetter = (word) => {
 };
 
 export const checkCityExistance = (city, userCities, computerCities) => {
-  city = city.toLowerCase();
+  const lowerCity = city.toLowerCase();
   return (
-    userCities.items.find(item => item.cityName === city) ||
-    computerCities.items.find(item => item.cityName === city)
+    userCities.items.find(item => item.cityName === lowerCity) ||
+    computerCities.items.find(item => item.cityName === lowerCity)
   );
 };
 
@@ -53,10 +53,10 @@ export const generateRandomCity = () => (dispatch, getState) => {
         const state = getState();
         if (checkCityExistance(res.city, state.userCities, state.computerCities)) {
           throw res;
-        };
+        }
         const lowerCityName = res.city.toLowerCase();
         return getCityCoordinatesComputer(lowerCityName)
-          .then(coordinates => {
+          .then((coordinates) => {
             const payload = {
               ...coordinates,
               cityName: lowerCityName,
@@ -64,21 +64,20 @@ export const generateRandomCity = () => (dispatch, getState) => {
             dispatch({ type: GENERATE_CITY_RECEIVED, payload });
             return payload;
           })
-          .catch(res => {
-            throw res;
-          })
-      } else {
-        throw res;
+          .catch((error) => {
+            throw error;
+          });
       }
+      throw res;
     })
-    .catch(res => {
+    .catch((res) => {
       dispatch({ type: GENERATE_CITY_ERROR });
       return res;
-    })
-}
+    });
+};
 
-export const FINISH_GAME = 'FINISH_GAME';
+export const NEW_GAME = 'NEW_GAME';
 
 export const finishGame = () => (dispatch) => {
-  dispatch({ type: FINISH_GAME });
-}
+  dispatch({ type: NEW_GAME });
+};
