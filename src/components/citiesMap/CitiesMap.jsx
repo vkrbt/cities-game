@@ -24,27 +24,29 @@ const CustomPlacemark = ({ city, color }) => (
 );
 
 const CitiesMap = (props) => (
-  <YMaps>
-    <Map state={mapState} width="100%" height="20vh">
-      <Clusterer
-        options={{
-          groupByCoordinates: false,
-          clusterDisableClickZoom: true,
-          preset: 'islands#nightClusterIcons'
-        }}
-      >
-        {props.userCities.items.map((city => (
-          <CustomPlacemark city={city} color="#E0FBFC" />
-        )))}
+  <div className="map-container">
+    <YMaps>
+      <Map state={mapState} width="100%" height="35vh">
+        <Clusterer
+          options={{
+            groupByCoordinates: false,
+            clusterDisableClickZoom: true,
+            preset: 'islands#nightClusterIcons'
+          }}
+        >
+          {props.userCities.items.map((city => (
+            <CustomPlacemark city={city} color="#E0FBFC" />
+          )))}
 
-        {props.computerCities.items.map((city => city.location ? (
-          <CustomPlacemark city={city} color="#98C1D9" />
-        ) : null
-        ))}
+          {props.computerCities.items.map((city => city.location ? (
+            <CustomPlacemark city={city} color="#98C1D9" />
+          ) : null
+          ))}
 
-      </Clusterer>
-    </Map>
-  </YMaps>
+        </Clusterer>
+      </Map>
+    </YMaps>
+  </div>
 );
 
 export default CitiesMap;

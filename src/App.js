@@ -31,11 +31,13 @@ class App extends Component {
       return (<div className="loading-overlay"><span className="spinner" /></div>);
     }
     return (
-      <div className="container">
+      <React.Fragment>
         <CitiesMapContainer />
-        <CityInputContainer />
-        <HistoryContainer />
-      </div>
+        <div className="container">
+          <CityInputContainer />
+          <HistoryContainer />
+        </div>
+      </React.Fragment>
     );
   }
 }

@@ -99,7 +99,11 @@ class CityInput extends Component {
             disabled={isButtonDisabled}
             className={`city-input__button${isButtonDisabled ? ' city-input__button--disabled' : ''}`}
           >
-            {this.props.computerCities.loading || this.props.userCities.loading ? <span className="small-spinner" /> : 'Дальше'}
+            {
+              this.props.computerCities.loading || this.props.userCities.loading ?
+                <span className="small-spinner" /> :
+                <span className="next-arrow" />
+            }
           </button>
         </div>
         <p className={`error-message${this.state.showErrorMessage ? ' error-message--animate' : ''}`}>{this.state.errorMessage}</p>
