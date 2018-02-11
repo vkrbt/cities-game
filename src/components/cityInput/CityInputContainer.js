@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import CityInput from './CityInput';
-import { checkCity, generateRandomCity } from '../../actions/cityActions'
+import { checkCity, generateRandomCity } from '../../actions/cityActions';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   computerCities: state.computerCities,
   userCities: state.userCities,
   lastLetter: state.lastLetter,
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   checkCity,
-  generateRandomCity
+  generateRandomCity,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityInput);

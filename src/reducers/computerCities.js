@@ -2,6 +2,7 @@ import {
   GENERATE_CITY_SENT,
   GENERATE_CITY_RECEIVED,
   GENERATE_CITY_ERROR,
+  NEW_GAME,
 } from '../actions/cityActions';
 
 const defaultState = {
@@ -16,7 +17,7 @@ const computerCities = (state = defaultState, { type, payload }) => {
       return {
         loading: true,
         success: false,
-        items: [...state.items]
+        items: [...state.items],
       };
     case GENERATE_CITY_RECEIVED:
       return {
@@ -25,14 +26,16 @@ const computerCities = (state = defaultState, { type, payload }) => {
         items: [
           payload,
           ...state.items,
-        ]
+        ],
       };
     case GENERATE_CITY_ERROR:
       return {
         loading: false,
         success: false,
-        items: [...state.items]
+        items: [...state.items],
       };
+    case NEW_GAME:
+      return defaultState;
     default:
       return state;
   }

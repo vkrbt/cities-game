@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark, Clusterer } from 'react-yandex-maps';
 
 const mapState = {
@@ -22,6 +23,16 @@ const CustomPlacemark = ({ city, color }) => (
     }}
   />
 );
+
+CustomPlacemark.propTypes = {
+  city: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    location: PropTypes.oneOfType([
+      PropTypes.array,
+    ]),
+  }).isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 const CitiesMap = (props) => (
   <div className="map-container">
@@ -48,5 +59,14 @@ const CitiesMap = (props) => (
     </YMaps>
   </div>
 );
+
+CitiesMap.propTypes = {
+  userCities: PropTypes.shape({
+    items: PropTypes.array.isRequired,
+  }).isRequired,
+  computerCities: PropTypes.shape({
+    items: PropTypes.array.isRequired,
+  }).isRequired,
+};
 
 export default CitiesMap;

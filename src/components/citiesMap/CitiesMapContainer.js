@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import CitiesMap from './CitiesMap';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userCities: state.userCities,
   computerCities: state.computerCities,
 });

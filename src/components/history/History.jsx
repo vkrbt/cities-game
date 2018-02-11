@@ -1,18 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const History = (props) => {
-  return (
-    <div className="history">
-      <div className="history__side history__side--user">
-        <h2 className="history__headline">Пользователь<span>{props.userCount}</span></h2>
-        {props.userCities.map(city => (<span className="city-name city-name--user" key={city.cityName}>{city.cityName}</span>))}
-      </div>
-      <div className="history__side history__side--computer">
-        <h2 className="history__headline">Компьютер<span>{props.userCount}</span></h2>
-        {props.computerCities.map(city => (<span className="city-name city-name--computer" key={city.cityName}>{city.cityName}</span>))}
-      </div>
+const History = props => (
+  <div className="history">
+    <h2 className="history__headline">Пользователь</h2>
+    <h2 className="history__headline">Компьютер</h2>
+    <div className="history__side">
+      {props.cities.map(city => (
+        <span
+          key={city.cityName}
+          className={`city-name ${city.isUser ? 'city-name--user' : 'city-name--computer'}`}
+        >
+          {city.cityName}
+        </span>
+      ))}
     </div>
-  );
+  </div>
+);
+
+History.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    isUser: PropTypes.bool.isRequired,
+  })).isRequired,
 };
 
 export default History;

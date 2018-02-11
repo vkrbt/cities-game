@@ -10,20 +10,19 @@ class App extends Component {
     super();
     this.state = {
       isYandexApiLoaded: false,
-      computerCities: [],
-      userCities: [],
     };
   }
 
   componentDidMount() {
     checkYandexApi()
       .then(
-      () => {
-        this.setState({ isYandexApiLoaded: true });
-      },
-      () => {
-        this.setState({ isYandexApiLoaded: false });
-      });
+        () => {
+          this.setState({ isYandexApiLoaded: true });
+        },
+        () => {
+          this.setState({ isYandexApiLoaded: false });
+        },
+      );
   }
 
   render() {

@@ -1,0 +1,68 @@
+.city-input {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  &__label {
+    margin-bottom: 10px;
+  }
+  &__input,
+  &__button {
+    padding: 5px 10px;
+    border: 1px solid $accent_color;
+    outline: none;
+    line-height: 20px;
+  }
+  &__input {
+    max-width: 200px;
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    font-size: 16px;
+    -webkit-appearance: none;
+  }
+  &__button {
+    width: 40px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.small-spinner {
+  @include spinner(10px, #FFF)
+}
+
+.next-arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg) translate(-25%, 25%);
+  border: 3px solid #FFF;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.error-message {
+  height: 25px;
+  transition: 0.5s ease;
+  transform: rotateX(90deg);
+  transform-origin: 0 0;
+  opacity: 0;
+  color: $message_color;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.error-message--animate {
+  transform: rotate(0);
+  opacity: 1;
+}
+
+.btn--end-game {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  color: #FFF;
+  border: none;
+  background-color: $message_color;
+}
