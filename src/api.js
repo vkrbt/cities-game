@@ -1,4 +1,4 @@
-const ymaps = window.ymaps;
+const { ymaps } = window;
 
 export const checkYandexApi = () => ymaps.ready();
 

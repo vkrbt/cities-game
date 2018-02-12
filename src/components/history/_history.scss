@@ -31,6 +31,18 @@
   line-height: 19px;
 }
 
+.city-name--user,
+.city-name--computer {
+  &::before {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    content: '';
+    border: 5px solid transparent;
+  }
+}
+
 .city-name--user {
   margin-left: 10px;
   transform-origin: 0 0;
@@ -55,17 +67,5 @@
     left: 100%;
     border-top-color: $computer_color;
     border-left-color: $computer_color;
-  }
-}
-
-.city-name--user,
-.city-name--computer {
-  &::before {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    content: '';
-    border: 5px solid transparent;
   }
 }

@@ -1,4 +1,4 @@
-import { getCityCoordinatesUser, getCityCoordinatesComputer, getRandomCity } from '../cities';
+import { getCityCoordinatesUser, getCityCoordinatesComputer, getRandomCity } from '../api';
 
 export const CHECK_CITY_SENT = 'CHECK_CITY_SENT';
 export const CHECK_CITY_RECEIVED = 'CHECK_CITY_RECEIVED';

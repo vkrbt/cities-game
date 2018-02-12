@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { checkYandexApi } from './cities';
+import { checkYandexApi } from './api';
 import CityInputContainer from './components/cityInput/CityInputContainer';
 import HistoryContainer from './components/history/HistoryContainer';
 import CitiesMapContainer from './components/citiesMap/CitiesMapContainer';

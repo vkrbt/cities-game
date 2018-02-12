@@ -14,18 +14,30 @@ const Results = (props) => {
 
   return (
     <div className="results">
-      <h2>
+      <h2 className="results__headline">
         {
           userCitiesCount === computerCitiesCount ?
-          'Вы проиграли' :
-          'Вы выйграли!'
+            'Вы проиграли' :
+            'Вы выйграли!'
         }
       </h2>
       <div>
-        <p>Всего названо слов: {computerCitiesCount + userCitiesCount}</p>
-        <p>Из них вами: {userCitiesCount}</p>
-        <p>Вы назвали города: {joinSitiesName(props.userCities.items)}</p>
-        <p>Сгенерированные игрой города: {joinSitiesName(props.computerCities.items)}</p>
+        <p className="results__paragraph">
+          <strong className="accent">Всего названо слов: </strong>
+          <span className="italic">{computerCitiesCount + userCitiesCount}</span>
+        </p>
+        <p className="results__paragraph">
+          <strong className="accent">Из них вами: </strong>
+          <span className="italic">{userCitiesCount}</span>
+        </p>
+        <p className="results__paragraph">
+          <strong className="accent">Вы назвали города: </strong>
+          <span className="italic">{joinSitiesName(props.userCities.items)}</span>
+        </p>
+        <p className="results__paragraph">
+          <strong className="accent">Сгенерированные игрой города: </strong>
+          <span className="italic">{joinSitiesName(props.computerCities.items)}</span>
+        </p>
       </div>
       <button className="btn btn--primary btn--new-game" onClick={newGame}>Новая Игра</button>
     </div>

@@ -5,4 +5,12 @@
 }
 .results {
   text-align: center;
+  &__headline {
+    font-size: 20px;
+    line-height: 25px;
+    padding-bottom: 15px;;
+  }
+  &__paragraph {
+    padding-bottom: 10px;;
+  }
 }

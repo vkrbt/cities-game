@@ -4,11 +4,14 @@ import {
   CHECK_CITY_ERROR,
   NEW_GAME,
 } from '../actions/cityActions';
+import { get } from '../localStorage';
+
+const preloadedCities = get('userCities');
 
 const defaultState = {
   loading: false,
   success: false,
-  items: [],
+  items: preloadedCities ? JSON.parse(preloadedCities) : [],
 };
 
 const userCities = (state = defaultState, { type, payload }) => {
