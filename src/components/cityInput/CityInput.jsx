@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { checkCityExistance } from '../../actions/cityActions';
 import Modal from '../modal/Modal';
 import ResultsContainer from '../results/ResultsContainer';
-import speak from '../../speech/speak';
+import recognize from '../../speech/recognize';
 
 class CityInput extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class CityInput extends Component {
       errorMessage: '',
       showErrorMessage: false,
       isModalOpened: false,
+      isRecording: false,
     };
   }
 
@@ -55,6 +57,18 @@ class CityInput extends Component {
     });
   }
 
+  showError = (error) => {
+    this.setState({
+      errorMessage: error,
+      showErrorMessage: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        showErrorMessage: false,
+      });
+    }, 2000);
+  }
+
   handleAnswer = () => {
     const isCityWasUsed = checkCityExistance(
       this.state.city,
@@ -72,17 +86,8 @@ class CityInput extends Component {
           if (res) {
             this.props.generateRandomCity()
               .then((city) => {
-                speak(city.cityName);
                 if (!city.location) {
-                  this.setState({
-                    errorMessage: 'Город не найден на карте.',
-                    showErrorMessage: true,
-                  });
-                  setTimeout(() => {
-                    this.setState({
-                      showErrorMessage: false,
-                    });
-                  }, 2000);
+                  this.showError('Город не найден на карте.');
                 }
               })
               .catch((err) => {
@@ -95,14 +100,30 @@ class CityInput extends Component {
               showErrorMessage: false,
             });
           } else {
-            this.setState({
-              errorMessage: 'Такого города не существует.',
-              showErrorMessage: true,
-            });
+            this.showError('Такого города не существует.');
           }
         })
         .catch();
     }
+  }
+
+  handleRecord = () => {
+    this.setState({ isRecording: true });
+    recognize()
+      .then((cityName) => {
+        if (!this.props.lastLetter || cityName[0].toLowerCase() === this.props.lastLetter) {
+          this.setState({
+            isRecording: false,
+            city: cityName,
+          }, this.handleAnswer);
+        } else {
+          throw Error('Неверная первая буква.');
+        }
+      })
+      .catch(() => {
+        this.setState({ isRecording: false });
+        this.showError('Попробуйте еще раз.');
+      });
   }
 
   render() {
@@ -113,7 +134,11 @@ class CityInput extends Component {
       <div className="city-input">
         {this.props.lastLetter ?
           <button
-            className={`btn btn--end-game${this.props.computerCities.loading || this.props.userCities.loading ? ' btn--disabled' : ''}`}
+            className={classnames({
+              btn: true,
+              'btn--end-game': true,
+              'btn--disabled': this.props.computerCities.loading || this.props.userCities.loading,
+            })}
             onClick={this.openModal}
             disabled={this.props.computerCities.loading || this.props.userCities.loading}
           >
@@ -121,7 +146,23 @@ class CityInput extends Component {
           </button> :
           <label className="city-input__label" htmlFor="city">Введите название города ниже: </label>
         }
-        <div>
+        <div className="city-input-wrapper">
+          <button
+            onClick={this.handleRecord}
+            disabled={this.state.isRecording}
+            className={classnames({
+              btn: true,
+              'city-input__record': true,
+              'btn--disabled': this.state.isRecording,
+            })}
+          >
+            <span
+              className={classnames({
+                circle: true,
+                'circle--pulse': this.state.isRecording,
+              })}
+            />
+          </button>
           <input
             ref={this.cityInputRef}
             onChange={this.handleCityChange}
@@ -135,7 +176,12 @@ class CityInput extends Component {
           <button
             onClick={this.handleAnswer}
             disabled={isButtonDisabled}
-            className={`btn btn--primary city-input__button${isButtonDisabled ? ' btn--disabled' : ''}`}
+            className={classnames({
+              btn: true,
+              'btn--primary': true,
+              'city-input__button': true,
+              'btn--disabled': isButtonDisabled,
+            })}
           >
             {
               this.props.computerCities.loading || this.props.userCities.loading ?
@@ -144,7 +190,14 @@ class CityInput extends Component {
             }
           </button>
         </div>
-        <p className={`error-message${this.state.showErrorMessage ? ' error-message--animate' : ''}`}>{this.state.errorMessage}</p>
+        <p
+          className={classnames({
+            'error-message': true,
+            'error-message--animate': this.state.showErrorMessage,
+          })}
+        >
+          {this.state.errorMessage}
+        </p>
         <Modal isOpen={this.state.isModalOpened} >
           <ResultsContainer closeModal={this.closeModal} />
         </Modal>

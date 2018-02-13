@@ -1,3 +1,14 @@
+.city-input-wrapper {
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 32px;
+  >* {
+    flex-grow: 1;
+  }
+}
+
 .city-input {
   display: flex;
   align-items: center;
@@ -6,26 +17,58 @@
     margin-bottom: 10px;
   }
   &__input,
-  &__button {
+  &__button,
+  &__record {
     padding: 5px 10px;
     border: 1px solid $accent_color;
     outline: none;
     line-height: 20px;
   }
   &__input {
-    max-width: 200px;
     border-right: none;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 3px;
+    border-left: none;
+    border-radius: 0;
     font-size: 16px;
-    -webkit-appearance: none;
+    appearance: none;
   }
   &__button {
-    width: 40px;
+    min-width: 32px;
+    max-width: 32px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+  &__record {
+    min-width: 32px;
+    max-width: 32px;
+    color: #FFF;
+    border-color: $message-color;
+    border-radius: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: $message-color;
+  }
+}
+
+.circle {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.circle--pulse {
+  position: relative;
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    content: '';
+    animation: pulse 1s infinite;
+    border-radius: 50%;
+    background-color: #fff;
   }
 }
 

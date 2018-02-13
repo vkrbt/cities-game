@@ -1,6 +1,6 @@
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const recognize = new Promise((res, rej) => {
+const recognize = () => new Promise((res, rej) => {
   if (!SpeechRecognition) {
     rej(new Error('Ваш браузер не поддерживает функцию распознания голоса'));
   }
@@ -14,6 +14,10 @@ const recognize = new Promise((res, rej) => {
 
     recognition.stop();
     res(cityName);
+  };
+
+  recognition.onend = () => {
+    res('');
   };
 
   recognition.onnomatch = (e) => {

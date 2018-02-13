@@ -49,6 +49,17 @@ p {
   }
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
 @mixin spinner($size, $color) {
   display: inline-block;
   width: $size;
@@ -89,6 +100,7 @@ p {
 }
 
 .btn {
+  cursor: pointer;
   transition: opacity 0.2s ease-out;
   text-align: center;
   opacity: 1;
@@ -96,10 +108,11 @@ p {
   border-radius: 3px;
   outline: none;
   font-size: 16px;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 .btn--disabled {
+  cursor: progress;
   opacity: 0.5;
 }
 
