@@ -38,7 +38,11 @@ const userCities = (state = defaultState, { type, payload }) => {
         items: [...state.items],
       };
     case NEW_GAME:
-      return defaultState;
+      return {
+        loading: false,
+        success: false,
+        items: [],
+      };
     default:
       return state;
   }

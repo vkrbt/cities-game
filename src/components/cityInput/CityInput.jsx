@@ -5,10 +5,10 @@ import Modal from '../modal/Modal';
 import ResultsContainer from '../results/ResultsContainer';
 
 class CityInput extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      city: '',
+      city: props.lastLetter.toUpperCase(),
       errorMessage: '',
       showErrorMessage: false,
       isModalOpened: false,

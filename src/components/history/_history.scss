@@ -43,10 +43,13 @@
   }
 }
 
-.city-name--user {
-  margin-left: 10px;
+.city-name--animate {
   transform-origin: 0 0;
   animation: appear 0.8s ease-out;
+}
+
+.city-name--user {
+  margin-left: 10px;
   border-top-left-radius: 0;
   background-color: $user_color;
   &::before {
@@ -59,8 +62,6 @@
 .city-name--computer {
   align-self: flex-end;
   margin-right: 10px;
-  transform-origin: 0 0;
-  animation: appear 0.8s ease-out;
   border-top-right-radius: 0;
   background-color: $computer_color;
   &::before {
