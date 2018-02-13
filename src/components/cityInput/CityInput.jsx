@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { checkCityExistance } from '../../actions/cityActions';
 import Modal from '../modal/Modal';
 import ResultsContainer from '../results/ResultsContainer';
+import speak from '../../speech/speak';
 
 class CityInput extends Component {
   constructor(props) {
@@ -71,6 +72,7 @@ class CityInput extends Component {
           if (res) {
             this.props.generateRandomCity()
               .then((city) => {
+                speak(city.cityName);
                 if (!city.location) {
                   this.setState({
                     errorMessage: 'Город не найден на карте.',
@@ -83,7 +85,8 @@ class CityInput extends Component {
                   }, 2000);
                 }
               })
-              .catch(() => {
+              .catch((err) => {
+                console.log(err);
                 this.setState({
                   isModalOpened: true,
                 });

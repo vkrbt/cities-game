@@ -24,7 +24,7 @@ export const checkCity = city => (dispatch) => {
 };
 
 export const getLastLetter = (word) => {
-  const invalidLetters = 'ъьё'.split('');
+  const invalidLetters = 'ъьёы'.split('');
   const letters = word.split('');
   let lastLetter = letters.pop();
   if (invalidLetters.includes(lastLetter)) {
