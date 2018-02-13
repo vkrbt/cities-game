@@ -1,5 +1,10 @@
 const { ymaps } = window;
 
+export const convertCityName = word => word
+  .split('')
+  .map(letter => (letter === 'ё' ? 'е' : letter))
+  .join('');
+
 export const checkYandexApi = () => ymaps.ready();
 
 export const getCityCoordinatesComputer = (cityName = '') => {
@@ -23,7 +28,8 @@ export const getCityCoordinatesComputer = (cityName = '') => {
 
 export const getCityCoordinatesUser = (cityName = '') => getCityCoordinatesComputer(`город ${cityName}`)
   .then((res) => {
-    if (res.cityName.toLowerCase() === cityName.toLocaleLowerCase()) {
+    const convertedCityName = convertCityName(cityName);
+    if (convertCityName(res.cityName.toLowerCase()) === convertedCityName.toLowerCase()) {
       return res;
     }
     throw res;

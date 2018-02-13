@@ -1,4 +1,4 @@
-import { getCityCoordinatesUser, getCityCoordinatesComputer, getRandomCity } from '../api';
+import { getCityCoordinatesUser, getCityCoordinatesComputer, getRandomCity, convertCityName } from '../api';
 
 export const CHECK_CITY_SENT = 'CHECK_CITY_SENT';
 export const CHECK_CITY_RECEIVED = 'CHECK_CITY_RECEIVED';
@@ -24,8 +24,8 @@ export const checkCity = city => (dispatch) => {
 };
 
 export const getLastLetter = (word) => {
-  const invalidLetters = 'ъьёы'.split('');
-  const letters = word.split('');
+  const invalidLetters = 'ъь'.split('');
+  const letters = convertCityName(word).split('');
   let lastLetter = letters.pop();
   if (invalidLetters.includes(lastLetter)) {
     lastLetter = letters.pop();

@@ -44,7 +44,7 @@
 }
 
 .error-message {
-  height: 25px;
+  min-height: 25px;
   transition: 0.5s ease;
   transform: rotateX(90deg);
   transform-origin: 0 0;
