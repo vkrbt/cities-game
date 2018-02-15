@@ -9,7 +9,7 @@ const mergeAnswers = (userCities, computerCities) => {
 
   while (localUserCities.length || localcomputerCities.length) {
     const lastUserCity = localUserCities.pop();
-    const lastUserCityCopied = lastUserCity ? { ...lastUserCity } : null;    
+    const lastUserCityCopied = lastUserCity ? { ...lastUserCity } : null;
     if (lastUserCityCopied) {
       if (localUserCities.length === 0) {
         lastUserCityCopied.isFirst = true;
@@ -36,9 +36,9 @@ const mergeAnswers = (userCities, computerCities) => {
 
 const mapStateToProps = state => ({
   cities: mergeAnswers(
-    state.userCities.items.slice(0, 15),
-    state.computerCities.items.slice(0, 15),
-  ),
+    state.userCities.items,
+    state.computerCities.items,
+  ).slice(0, 20),
 });
 
 export default connect(mapStateToProps, null)(History);
