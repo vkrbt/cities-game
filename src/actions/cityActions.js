@@ -72,7 +72,7 @@ export const generateRandomCity = () => (dispatch, getState) => {
     })
     .catch((res) => {
       dispatch({ type: GENERATE_CITY_ERROR });
-      return res;
+      throw res;
     });
 };
 

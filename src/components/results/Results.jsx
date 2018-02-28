@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const joinSitiesName = cities => cities.reverse().reduce((string, city) => `${string} ${city.cityName}`, '');
+const capitalize = str => `${str[0].toUpperCase()}${str.slice(1)}`;
+
+const joinCitiesName = cities => cities
+  .reverse()
+  .map(city => capitalize(city.cityName))
+  .join(', ');
 
 const Results = (props) => {
   const newGame = () => {
@@ -18,7 +23,7 @@ const Results = (props) => {
         {
           userCitiesCount === computerCitiesCount ?
             'Вы проиграли' :
-            'Вы выйграли!'
+            'Вы выиграли!'
         }
       </h2>
       <div>
@@ -32,11 +37,11 @@ const Results = (props) => {
         </p>
         <p className="results__paragraph">
           <strong className="accent">Вы назвали города: </strong>
-          <span className="italic">{joinSitiesName(props.userCities.items)}</span>
+          <span className="italic">{joinCitiesName(props.userCities.items)}</span>
         </p>
         <p className="results__paragraph">
           <strong className="accent">Сгенерированные игрой города: </strong>
-          <span className="italic">{joinSitiesName(props.computerCities.items)}</span>
+          <span className="italic">{joinCitiesName(props.computerCities.items)}</span>
         </p>
       </div>
       <button className="btn btn--primary btn--new-game" onClick={newGame}>Новая Игра</button>

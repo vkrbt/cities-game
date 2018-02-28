@@ -13,7 +13,7 @@ class CityInput extends Component {
       city: props.lastLetter.toUpperCase(),
       errorMessage: '',
       showErrorMessage: false,
-      isModalOpened: false,
+      isModalOpened: props.isWin,
       isRecording: false,
     };
   }
@@ -220,6 +220,7 @@ CityInput.propTypes = {
   lastLetter: PropTypes.string.isRequired,
   checkCity: PropTypes.func.isRequired,
   generateRandomCity: PropTypes.func.isRequired,
+  isWin: PropTypes.bool.isRequired,
 };
 
 export default CityInput;
