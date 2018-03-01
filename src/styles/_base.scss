@@ -128,3 +128,13 @@ p {
 .italic {
   font-style: italic;
 }
+
+.list {
+  counter-reset: item;
+  &__item {
+    &:before {
+      content: counter(item) ". ";
+      counter-increment: item;
+    }
+  }
+}

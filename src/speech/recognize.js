@@ -31,4 +31,6 @@ const recognize = () => new Promise((res, rej) => {
   };
 });
 
+export { SpeechRecognition };
+
 export default recognize;

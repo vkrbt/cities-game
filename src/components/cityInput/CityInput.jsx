@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { checkCityExistance } from '../../actions/cityActions';
 import Modal from '../modal/Modal';
 import ResultsContainer from '../results/ResultsContainer';
-import recognize from '../../speech/recognize';
+import recognize, { SpeechRecognition } from '../../speech/recognize';
 
 class CityInput extends Component {
   constructor(props) {
@@ -90,8 +90,7 @@ class CityInput extends Component {
                   this.showError('Город не найден на карте.');
                 }
               })
-              .catch((err) => {
-                console.log(err);
+              .catch(() => {
                 this.setState({
                   isModalOpened: true,
                 });
@@ -147,22 +146,26 @@ class CityInput extends Component {
           <label className="city-input__label" htmlFor="city">Введите название города ниже: </label>
         }
         <div className="city-input-wrapper">
-          <button
-            onClick={this.handleRecord}
-            disabled={this.state.isRecording}
-            className={classnames({
-              btn: true,
-              'city-input__record': true,
-              'btn--disabled': this.state.isRecording,
-            })}
-          >
-            <span
-              className={classnames({
-                circle: true,
-                'circle--pulse': this.state.isRecording,
-              })}
-            />
-          </button>
+          {
+            SpeechRecognition ? (
+              <button
+                onClick={this.handleRecord}
+                disabled={this.state.isRecording}
+                className={classnames({
+                  btn: true,
+                  'city-input__record': true,
+                  'btn--disabled': this.state.isRecording,
+                })}
+              >
+                <span
+                  className={classnames({
+                    circle: true,
+                    'circle--pulse': this.state.isRecording,
+                  })}
+                />
+              </button>
+            ) : null
+          }
           <input
             ref={this.cityInputRef}
             onChange={this.handleCityChange}
@@ -171,7 +174,11 @@ class CityInput extends Component {
             name="city"
             id="city"
             onKeyPress={this.handleSubmit}
-            className="city-input__input"
+            className={classnames({
+              'city-input__input': true,
+              'city-input__input--left-border': !SpeechRecognition,
+            })
+            }
           />
           <button
             onClick={this.handleAnswer}

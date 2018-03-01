@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 
 const capitalize = str => `${str[0].toUpperCase()}${str.slice(1)}`;
 
-const joinCitiesName = cities => cities
-  .reverse()
-  .map(city => capitalize(city.cityName))
-  .join(', ');
-
 const Results = (props) => {
   const newGame = () => {
     props.finishGame();
@@ -27,22 +22,30 @@ const Results = (props) => {
         }
       </h2>
       <div>
-        <p className="results__paragraph">
-          <strong className="accent">Всего названо слов: </strong>
-          <span className="italic">{computerCitiesCount + userCitiesCount}</span>
-        </p>
-        <p className="results__paragraph">
-          <strong className="accent">Из них вами: </strong>
-          <span className="italic">{userCitiesCount}</span>
-        </p>
-        <p className="results__paragraph">
-          <strong className="accent">Вы назвали города: </strong>
-          <span className="italic">{joinCitiesName(props.userCities.items)}</span>
-        </p>
-        <p className="results__paragraph">
-          <strong className="accent">Сгенерированные игрой города: </strong>
-          <span className="italic">{joinCitiesName(props.computerCities.items)}</span>
-        </p>
+        <h3 className="results__subheader">
+          Всего названо слов:&ensp;
+          <span className="italic">
+            {computerCitiesCount + userCitiesCount}
+          </span>
+        </h3>
+        <h3 className="results__subheader">
+          Из них вами:&ensp;
+          <span className="italic">
+            {userCitiesCount}
+          </span>
+        </h3>
+        <h3 className="results__subheader">Вы назвали города: </h3>
+        <ol className="list results__list">
+          {props.userCities.items.reverse().map(city => (
+            <li className="list__item">{capitalize(city.cityName)}</li>
+          ))}
+        </ol>
+        <h3 className="results__subheader">Сгенерированные игрой города: </h3>
+        <ol className="list results__list">
+          {props.computerCities.items.reverse().map(city => (
+            <li className="list__item">{capitalize(city.cityName)}</li>
+          ))}
+        </ol>
       </div>
       <button className="btn btn--primary btn--new-game" onClick={newGame}>Новая Игра</button>
     </div>
